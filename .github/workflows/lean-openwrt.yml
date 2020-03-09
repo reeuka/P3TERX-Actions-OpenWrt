@@ -6,7 +6,7 @@
 # Blog: https://p3terx.com
 #=================================================
 
-name: Build OpenWrt
+name: Build Lean OpenWrt
 
 on:
   release:
@@ -18,8 +18,8 @@ on:
       - '.config'
   schedule:
     - cron: 0 7 * * 5
-#  watch:
-#    types: started
+  watch:
+    types: started
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
