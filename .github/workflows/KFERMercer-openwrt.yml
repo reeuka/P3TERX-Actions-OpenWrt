@@ -122,10 +122,10 @@ jobs:
         cd openwrt
         rm -rf artifact/
         mkdir -p artifact
-        find bin/targets/ -name "*combined*img*" | xargs -i mv -f {} openwrt/artifact/
+        find bin/targets/ -name "*combined*img*" | xargs -i mv -f {} artifact/
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@master
       with:
         name: KFERMercer_openwrt
-        path: openwrt/artifact/
+        path: artifact/
