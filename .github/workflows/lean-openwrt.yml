@@ -121,7 +121,7 @@ jobs:
         cd lede
         rm -rf artifact/
         mkdir -p artifact
-        find bin/targets/ -name "*combined*img*" | xargs -i mv -f {} lede/artifact/
+        find bin/targets/ -name "*combined*img*" | xargs -i mv -f {} artifact/
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@master
