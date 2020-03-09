@@ -126,5 +126,5 @@ jobs:
     - name: Upload firmware directory
       uses: actions/upload-artifact@master
       with:
-        name: Lean_lede_firmware
+        name: Lean_lede
         path: lede/artifact/
