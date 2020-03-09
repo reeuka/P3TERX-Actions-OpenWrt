@@ -113,19 +113,19 @@ jobs:
       run: |
         cd openwrt
         rm -rf bin/targets/packages
-        mkdir -p ./artifact/
-        mv bin/targets/* ./artifact/
+        mkdir -p artifact
+        mv bin/targets/* artifact/
 
     - name: Organize imgartifact
       if: env.UPLOAD_IMGARTIFACT == 'true' && !cancelled()
       run: |
         cd openwrt
-        rm -rf ./artifact/
-        mkdir -p ./artifact/
-        find ./bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
+        rm -rf artifact/
+        mkdir -p artifact
+        find bin/targets/ -name "*combined*img*" | xargs -i mv -f {} openwrt/artifact/
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@master
       with:
-        name: KFERMercer_openwrt_firmware
-        path: ./artifact/
+        name: KFERMercer_openwrt
+        path: openwrt/artifact/
