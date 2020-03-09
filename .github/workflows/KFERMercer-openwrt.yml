@@ -109,7 +109,6 @@ jobs:
         path: openwrt/bin
 
     - name: Organize files
-      id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         cd openwrt
@@ -118,7 +117,6 @@ jobs:
         mv bin/targets/* ./artifact/
 
     - name: Organize imgartifact
-      id: organize
       if: env.UPLOAD_IMGARTIFACT == 'true' && !cancelled()
       run: |
         cd openwrt
