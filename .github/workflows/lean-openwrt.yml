@@ -21,7 +21,7 @@ on:
     paths:
       - '.config'
   schedule:
-    - cron: 0 7 * * 5
+    - cron: 0 7 * * 0
   watch:
     types: started
 
@@ -111,19 +111,20 @@ jobs:
       run: |
         cd lede
         rm -rf bin/targets/packages
-        mkdir -p ./artifact/
-        mv bin/targets/* ./artifact/
+        rm -rf artifact/
+        mkdir -p artifact
+        mv bin/targets/* artifact/
 
     - name: Organize imgartifact
       if: env.UPLOAD_IMGARTIFACT == 'true' && !cancelled()
       run: |
         cd lede
-        rm -rf ./artifact/
-        mkdir -p ./artifact/
-        find ./bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
+        rm -rf artifact/
+        mkdir -p artifact
+        find bin/targets/ -name "*combined*img*" | xargs -i mv -f {} lede/artifact/
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@master
       with:
         name: Lean_lede_firmware
-        path: ./artifact/
+        path: lede/artifact/
