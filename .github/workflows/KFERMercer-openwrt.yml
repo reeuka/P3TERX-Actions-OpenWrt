@@ -93,36 +93,43 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
-    - name: Compile the firmware
-      id: compile
-      run: |
-        cd openwrt
-        echo -e "$(nproc) thread compile"
-        make -j$(nproc) || make -j1 V=s
-        echo "::set-output name=status::success"
-
-    - name: Upload bin directory
-      uses: actions/upload-artifact@master
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
-      with:
-        name: KFERMercer_openwrt_bin
-        path: openwrt/bin
-
-    - name: Organize files
-      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
-      run: |
-        cd openwrt
-        rm -rf bin/targets/packages
-        mkdir -p artifact
-        mv bin/targets/* artifact/
-
-    - name: Organize imgartifact
-      if: env.UPLOAD_IMGARTIFACT == 'true' && !cancelled()
+    - name: find config
       run: |
         cd openwrt
         rm -rf artifact/
         mkdir -p artifact
-        find bin/targets/ -name "*combined*img*" | xargs -i mv -f {} artifact/
+        mv ./.config artifact/
+
+#    - name: Compile the firmware
+#      id: compile
+#      run: |
+#        cd openwrt
+#        echo -e "$(nproc) thread compile"
+#        make -j$(nproc) || make -j1 V=s
+#        echo "::set-output name=status::success"
+
+#    - name: Upload bin directory
+#      uses: actions/upload-artifact@master
+#      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+#      with:
+#        name: KFERMercer_openwrt_bin
+#        path: openwrt/bin
+
+#    - name: Organize files
+#      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+#      run: |
+#        cd openwrt
+#        rm -rf bin/targets/packages
+#        mkdir -p artifact
+#        mv bin/targets/* artifact/
+
+#    - name: Organize imgartifact
+#      if: env.UPLOAD_IMGARTIFACT == 'true' && !cancelled()
+#      run: |
+#        cd openwrt
+#        rm -rf artifact/
+#        mkdir -p artifact
+#        find bin/targets/ -name "*combined*img*" | xargs -i mv -f {} artifact/
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@master
