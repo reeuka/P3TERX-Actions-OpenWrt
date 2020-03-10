@@ -30,7 +30,7 @@ env:
   REPO_BRANCH: master
   CONFIG_FILE: .config
   DIY_SH: diy.sh
-  DIY_CONFIG: k_x86_64.config
+  DIY_CONFIG: x86_64.config
   SSH_ACTIONS: false
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: false
