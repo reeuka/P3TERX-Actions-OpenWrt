@@ -10,7 +10,7 @@
 # reeuka/P3TERX-Actions-OpenWrt
 #=================================================
 
-name: Build Lean Lede
+name: Build Lean Lede x86-64
 
 on:
   release:
